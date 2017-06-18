@@ -1,0 +1,7 @@
+[flake8]
+
+# first line is the default value for "exclude" option
+exclude =
+    .git__pycache__,docs/source/conf.py,old,build,disz,
+    */migrations/*,
+    turnex/settings/*
