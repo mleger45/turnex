@@ -10,7 +10,7 @@ class TurnexForm(models.Model):
     '''
     Basic form on turnex
     '''
-    name = models.CharField(max_length=5)
+    name = models.CharField(max_length=10)
     details = JSONField(blank=True, null=True, default=None,
                         help_text='Example: [{type: Site, color: #12345}]')
     published = models.BooleanField(db_index=True, editable=True,

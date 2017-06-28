@@ -123,3 +123,7 @@ tests/report/
 
 # extra
 .vscode/
+*.iml
+*.xml
+static/*
+dump.*

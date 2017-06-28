@@ -1,0 +1,130 @@
+
+.board {
+    display: flex;
+    height: 93vh;
+    padding: 10px;
+}
+
+.board-content {
+    padding-top: 20px;
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.board-sidebar {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.board-media {
+    flex: 3;
+    }
+
+.board-widgets {
+    flex: 1;
+    display: flex;
+}
+
+
+
+.board-widget-date,
+.board-widget-weather {
+    padding: 2px;
+    line-height: 150px;
+    flex: 1;
+    text-align: center;
+}
+
+
+
+.board-sidebar-ticket {
+    min-height: 240px;
+    flex: 1;
+}
+
+.board-sidebar-list {
+    flex: 1;
+}
+
+.sidebar-list {
+    padding-top: 27px;
+    text-align: center;
+    margin-top: 40px;
+    flex: 1;
+}
+
+.sidebar-list li {
+    display: block;
+    margin-bottom: 15px;
+    color: #898989;
+    font-size: 2rem;
+    background: #33454e;
+    min-height: 50px;
+    padding-top: 20px;
+}
+
+.sidebar-list-box {
+    display: inline-block;
+    width: 46px;
+    height: 16px;
+    float: right;
+    position: relative;
+    top: 10px;
+}
+
+.board-sidebar-type {
+    min-height: 103px;
+    line-height: 103px;
+    background: #33454e;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 3rem;
+}
+
+.board-sidebar-number {
+    font-size: 10rem;
+    color: #fff;
+    background: greenyellow;
+}
+
+
+video {
+  width: 100%    !important;
+  object-fit: fill;
+}
+
+#show-date,
+#show-weather {
+    background: #33454e;
+    color: #fff;
+}
+
+#show-date {
+    font-size: 3rem;
+}
+
+#audio-box {
+    display: none;
+}
+
+#weather {
+    display: flex;
+    justify-content: center;
+}
+
+#weather img {
+    align-self: center;
+    margin-right: 5px;
+    width: 149px;
+    height: 149px;
+}
+
+#weather span {
+    font-size: 2.5rem;
+}
+

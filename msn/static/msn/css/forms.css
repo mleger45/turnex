@@ -1,0 +1,124 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-header {
+    background: #193542;
+    color: #fff;
+    min-height: 85px;
+    line-height: 85px;
+    padding-left: 36px;
+    font-family: "Bebas Neue", Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+.form-content {
+
+    display: flex;
+}
+
+.forms {
+    display: flex;
+    flex-direction: column;
+    flex:2;
+}
+
+.form {
+    min-height: 257px;
+    display: flex;
+    padding-top: 40px;
+    border-bottom: 2px solid #e6e6e6;
+}
+
+.form-title {
+    text-align: right;
+    color: #fff;
+    flex-basis: 200px;
+}
+
+.form-title p {
+    min-height: 64px;
+    background: #3e606f;
+    line-height: 64px;
+    padding-right: 40px;
+    text-transform: uppercase;
+}
+
+.form-raw {
+    padding-left: 47px;
+}
+
+.color-box {
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+}
+
+.form-type {
+    margin-bottom: 23px;
+    display: flex;
+    align-items: center;
+}
+
+.form-type > * {
+    margin: 3px;
+}
+
+.form-button {
+    margin-top: 10px;
+}
+
+.sidebar {
+    flex: 1;
+    background: #e6e6e6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sidebar-current-ticket {
+    flex: 1;
+    flex-basis: 100%;
+    align-self: stretch;
+    padding: 30px;
+}
+
+.sidebar-called-ticket {
+    flex: 1;
+    flex-basis: 100%;
+    align-self: stretch;
+    flex-basis: 100%;
+    padding: 30px;
+}
+
+.sidebar-ticket {
+    height: 100%;
+    text-align: center;
+    color: #fff;
+    line-height: 270px;
+    font-size: 120pt;
+}
+
+.sidebar-list {
+    padding-top: 10px;
+    text-align: center;
+}
+
+.sidebar-list li{
+    display:block;
+    margin-bottom: 15px;
+    color: #898989;
+    font-size: 2rem;
+}
+
+.sidebar-list-box {
+    display: inline-block;
+    width: 46px;
+    height: 16px;
+    float: right;
+    position: relative;
+    top: 10px;
+}

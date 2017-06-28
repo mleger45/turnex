@@ -1,0 +1,135 @@
+{% extends "base.j2" %}
+
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static "msn/css/board.css" %}" />
+{% endblock %}
+
+{% block content %}
+<div class="board">
+    <div class ="board-content">
+        <div class="board-media">
+            <video width="813" height="474" autoplay loop>
+                <source src="{% static "msn/media/video.mp4" %}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <div class="board-widgets"> 
+            <div class="board-widget-date"><div id="show-date">cargando...</div></div>
+            <div class="board-widget-weather">
+                <div id="show-weather">
+                    <div id="weather"><img src= "{{weather.url}}"/> <span>{{weather.temperature}} &#8451;</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class ="board-sidebar">
+        <div class="board-sidebar-ticket">
+            <div class="board-sidebar-type"></div>
+            <div class="board-sidebar-number"></div>
+        </div>
+        <div class="board-sidebar-list">
+            <ul class="sidebar-list" id="list">
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="audio-box">
+    <audio  id="audio" controls>
+        <source src="{% static "msn/media/next.mp3" %}" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+</div>
+<script type="text/javascript">
+
+function clearStorage() {
+    localStorage.clear('oldTicket');
+}
+
+function updateTicket(obj) {
+    document.getElementsByClassName('board-sidebar-type')[0].innerHTML = obj.type;
+    document.getElementsByClassName('board-sidebar-number')[0].style.backgroundColor = obj.color;
+    document.getElementsByClassName('board-sidebar-number')[0].innerHTML = obj.value;
+}
+
+function createTicket(ticket){
+    var li = document.createElement('li');
+    li.innerHTML = ticket.value + " <div class=\"sidebar-list-box\" style=\"background: "+ticket.color+"\"></div>";
+    return li;
+}
+
+function existOldTicket() {
+    return localStorage.hasOwnProperty('oldTicket');
+}
+
+function getOldTicket() {
+    return JSON.parse(localStorage.oldTicket);
+}
+
+function saveTicket(ticket) {
+    localStorage.oldTicket = JSON.stringify(ticket);
+}
+
+function updateList(ticket) {
+    var list = document.getElementById('list');
+    var ticketElement = createTicket(ticket);
+    list.prepend(ticketElement);
+    var elem = list.children.length;
+    if(elem == 5) {
+        list.lastElementChild.remove();
+    }
+}
+
+function makeSomeNoise() {
+    document.getElementById("audio").play();
+}
+
+clearStorage();
+var socket = new WebSocket("ws://" + window.location.host + "/");
+
+socket.onmessage = function(e) {
+    try {
+        var a = JSON.parse(e.data);
+        var tuple = a.type.split("*");
+
+        var newTicket = {
+            type: tuple[0],
+            value: a.value,
+            color: tuple[1],
+        };
+
+        makeSomeNoise();
+        updateTicket(newTicket);
+
+        if(existOldTicket()) {
+            var oldTicket = getOldTicket();
+            updateList(oldTicket);
+            saveTicket(newTicket);
+        }
+        else {
+            saveTicket(newTicket);
+        }
+
+
+    } catch(err) {
+        console.error('error', e.data, err);
+    }
+
+}
+socket.onopen = function() {
+    // socket.send("hello world");
+}
+// Call onopen directly if socket is already open
+if (socket.readyState == WebSocket.OPEN) socket.onopen();
+
+function showTime() {
+    var d = new Date();
+    document.getElementById("show-date").innerHTML = d.toLocaleDateString();
+}
+
+setInterval(showTime,1000);
+
+</script>
+{% endblock %}

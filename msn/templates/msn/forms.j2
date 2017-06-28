@@ -1,0 +1,158 @@
+{% extends "base.j2" %}
+
+{% load static %}
+{% block head %}
+ <link rel="stylesheet" href="{% static "msn/css/forms.css" %}" />
+{% endblock %}
+
+{% block content%}
+
+<div class="form-container">
+<div class="form-header">TURNEX</div>
+<div class="form-content">
+<div class="forms">
+{% for form in forms %} 
+    <div class="form">
+        <div class="form-title">
+        <p>{{ form.name }}</p></div>
+        <div class="form-raw">
+        <form id="{{ form.name }}" method="POST" href="#">
+            {% for choice in form.details %}
+                 <div class="form-type">
+                    <div class="color-box" style="background: {{ choice.color }}"></div>
+                    <input type="radio" name="rd-{{ form.name }}" value="{{ choice.type }} * {{ choice.color }}" class="radio-{{ form.name }}" />
+                    <label>{{ choice.type }}</label>
+                </div>
+            {% endfor %}
+            <div class="form-field">
+            <input id="input-{{form.name}}" type="text" name="" value=""/>
+            </div>
+            <div class="form-button">
+            <input type="button" value="notify" onclick="sendTicket(this);"/>
+            </div>
+        </form>
+        </div>
+    </div>
+{% endfor %}
+</div>
+<div class="sidebar">
+    <div class="sidebar-current-ticket">
+        <div class="sidebar-ticket"></div>
+    </div>
+    <div class="sidebar-called-ticket">
+        <ul class="sidebar-list" id="list">
+            <!--<li>4 <div class="sidebar-list-box" style="background: red"></div></li>
+            <li>2 <div class="sidebar-list-box" style="background: red"></li>-->
+        </ul>
+    </div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+
+function clearStorage() {
+    localStorage.clear('oldTicket');
+}
+
+function updateTicket(obj) {
+    //document.getElementsByClassName('board-sidebar-type')[0].innerHTML = obj.type;
+    document.getElementsByClassName('sidebar-ticket')[0].style.backgroundColor = obj.color;
+    document.getElementsByClassName('sidebar-ticket')[0].innerHTML = obj.value;
+}
+
+function createTicket(ticket){
+    var li = document.createElement('li');
+    li.innerHTML = ticket.value + " <div class=\"sidebar-list-box\" style=\"background: "+ticket.color+"\"></div>";
+    return li;
+}
+
+function existOldTicket() {
+    return localStorage.hasOwnProperty('oldTicket');
+}
+
+function getOldTicket() {
+    return JSON.parse(localStorage.oldTicket);
+}
+
+function saveTicket(ticket) {
+    localStorage.oldTicket = JSON.stringify(ticket);
+}
+
+function updateList(ticket) {
+    var list = document.getElementById('list');
+    var ticketElement = createTicket(ticket);
+    list.prepend(ticketElement);
+    var elem = list.children.length;
+    if(elem == 5) {
+        list.lastElementChild.remove();
+    }
+}
+
+clearStorage();
+
+
+
+var socket = new WebSocket("ws://" + window.location.host + "/");
+socket.onmessage = function(e) {
+    try {
+        var a = JSON.parse(e.data);
+        var tuple = a.type.split("*");
+
+        var newTicket = {
+            type: tuple[0],
+            value: a.value,
+            color: tuple[1],
+        };
+
+        updateTicket(newTicket);
+
+        if(existOldTicket()) {
+            var oldTicket = getOldTicket();
+            updateList(oldTicket);
+            saveTicket(newTicket);
+        }
+        else {
+            saveTicket(newTicket);
+        }
+
+
+    } catch(err) {
+        console.info('Info:', e.data,);
+    }
+}
+socket.onopen = function() {
+    console.log('conexion started...');
+}
+// Call onopen directly if socket is already open
+if (socket.readyState == WebSocket.OPEN) socket.onopen();
+
+function valid(ticket) {
+
+    var tuple = ticket.type.split("*");
+    var type = tuple[0];
+    var color = tuple[1];
+    var value = ticket.value;
+    var isValid =  type != "" && color != "" && value != "";
+    return isValid;
+}
+
+function sendTicket(event){
+    var form = event.form.id;
+    var value = document.getElementById('input-'+form).value;
+    var radio = document.getElementById(form).elements["rd-"+form].value;
+
+    var ticket = {
+        source: form,
+        value: value,
+        type: radio
+    };
+
+    if(valid(ticket)) {
+        socket.send(JSON.stringify(ticket));
+        document.getElementById(form).reset();
+    }
+}
+
+</script>
+{% endblock %}
