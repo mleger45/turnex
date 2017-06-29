@@ -4,17 +4,19 @@
 {% block head %}
  <link rel="stylesheet" href="{% static "msn/css/forms.css" %}" />
 {% endblock %}
+ {% block title %}Forms Viewer{% endblock %}
+ 
+ {% block header %}
+    <div class="header">TURNEX HEADER</div>
+{% endblock %}
 
 {% block content%}
-
-<div class="form-container">
-<div class="form-header">TURNEX</div>
-<div class="form-content">
 <div class="forms">
 {% for form in forms %} 
     <div class="form">
         <div class="form-title">
-        <p>{{ form.name }}</p></div>
+        <p>{{ form.name }}</p>
+        </div>
         <div class="form-raw">
         <form id="{{ form.name }}" method="POST" href="#">
             {% for choice in form.details %}
@@ -35,20 +37,29 @@
     </div>
 {% endfor %}
 </div>
-<div class="sidebar">
-    <div class="sidebar-current-ticket">
-        <div class="sidebar-ticket"></div>
+{% endblock %}
+
+{% block sidebar %}
+<div class="sidebar">s
+    <div class="sidebar-current-ticket">t
+        <div class="sidebar-ticket">1</div>
     </div>
-    <div class="sidebar-called-ticket">
+    <div class="sidebar-called-ticket">2
         <ul class="sidebar-list" id="list">
-            <!--<li>4 <div class="sidebar-list-box" style="background: red"></div></li>
-            <li>2 <div class="sidebar-list-box" style="background: red"></li>-->
         </ul>
     </div>
 </div>
 </div>
 </div>
+{% endblock%}
 
+{% block footer %}
+    <div class="footer">
+        &copy; Copyright 2008 by <a href="http://domain.invalid/">you</a>.
+    </div>
+{% endblock %}
+
+{% block scripts %}
 <script type="text/javascript">
 
 function clearStorage() {
@@ -156,3 +167,5 @@ function sendTicket(event){
 
 </script>
 {% endblock %}
+
+

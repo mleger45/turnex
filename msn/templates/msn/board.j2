@@ -6,28 +6,39 @@
 {% endblock %}
 
 {% block content %}
-<div class="board">
-    <div class ="board-content">
+<div class="content">
         <div class="board-media">
-            <video width="813" height="474" autoplay loop>
+           <video autoplay loop>
                 <source src="{% static "msn/media/video.mp4" %}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
 
         <div class="board-widgets"> 
-            <div class="board-widget-date"><div id="show-date">cargando...</div></div>
+            <div class="board-widget-date">
+                <div id="show-date">cargando...</div>
+            </div>
             <div class="board-widget-weather">
                 <div id="show-weather">
                     <div id="weather"><img src= "{{weather.url}}"/> <span>{{weather.temperature}} &#8451;</span></div>
                 </div>
             </div>
         </div>
+
+<div id="audio-box">
+    <audio  id="audio" controls>
+        <source src="{% static "msn/media/next.mp3" %}" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+</div>
     </div>
-    
-    <div class ="board-sidebar">
+
+{% endblock %}
+
+{% block sidebar %}
+    <div class ="sidebar">
         <div class="board-sidebar-ticket">
-            <div class="board-sidebar-type"></div>
+            <div class="board-sidebar-type">TURNO</div>
             <div class="board-sidebar-number"></div>
         </div>
         <div class="board-sidebar-list">
@@ -35,13 +46,9 @@
             </ul>
         </div>
     </div>
-</div>
-<div id="audio-box">
-    <audio  id="audio" controls>
-        <source src="{% static "msn/media/next.mp3" %}" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-</div>
+{% endblock%}
+
+{% block scripts %}
 <script type="text/javascript">
 
 function clearStorage() {
@@ -77,7 +84,7 @@ function updateList(ticket) {
     var ticketElement = createTicket(ticket);
     list.prepend(ticketElement);
     var elem = list.children.length;
-    if(elem == 5) {
+    if(elem == 6) {
         list.lastElementChild.remove();
     }
 }
@@ -100,9 +107,8 @@ socket.onmessage = function(e) {
             color: tuple[1],
         };
 
-        makeSomeNoise();
         updateTicket(newTicket);
-
+        
         if(existOldTicket()) {
             var oldTicket = getOldTicket();
             updateList(oldTicket);
@@ -111,6 +117,7 @@ socket.onmessage = function(e) {
         else {
             saveTicket(newTicket);
         }
+        makeSomeNoise();
 
 
     } catch(err) {

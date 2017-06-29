@@ -1,19 +1,17 @@
-.form-container {
-    display: flex;
-    flex-direction: column;
-}
 
-.form-header {
+
+.header {
     background: #193542;
     color: #fff;
-    min-height: 85px;
-    line-height: 85px;
-    padding-left: 36px;
-    font-family: "Bebas Neue", Arial, Helvetica, sans-serif;
-    font-weight: normal;
-    font-style: normal;
+    min-height: 35px;
+    line-height: 35px;
+    padding-left: 30px;
 }
 
+.footer{
+    background: #193542;
+    color: #fff;
+}
 
 .form-content {
 

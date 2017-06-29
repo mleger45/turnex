@@ -45,6 +45,31 @@ table {
 /* END RESET SECTION */
 
 
-body {
-    font-family: "Bebas Neue", Helvetica, sans-serif;
+/* Main configuration for the container */
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
 }
+
+.container {
+    display: flex;
+    height: 100vh;
+    justify-content: flex-end;
+}
+
+.content {
+	flex-grow: 1;
+}
+
+.sidebar {
+	flex-basis: 287px;
+	font-family: 'Francois One', sans-serif;
+}
+
+video {
+	object-fit: fill;
+	max-height: 531px;
+	width: 100%;
+}
+/* Main configuration for the container */
