@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from msn import services
+from datetime import datetime
 
 
 def main(request):
@@ -9,7 +10,7 @@ def main(request):
 
 def forms(request):
     forms = services.get_forms()
-    context = {'forms': forms}
+    context = {'forms': forms, 'year': datetime.now().year}
     return render(request, 'msn/forms.j2', context)
 
 

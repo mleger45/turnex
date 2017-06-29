@@ -9,12 +9,10 @@
 }
 
 .footer{
-    background: #193542;
-    color: #fff;
+    text-align: center;
 }
 
 .form-content {
-
     display: flex;
 }
 
