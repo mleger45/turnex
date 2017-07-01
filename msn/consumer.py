@@ -1,7 +1,7 @@
 import logging
 
 from channels import Group
-from channels.sessions import channel_session
+# from channels.sessions import channel_session
 
 LOG = logging.getLogger(__name__)
 
@@ -16,8 +16,10 @@ def ws_connect(message):
     message.reply_channel.send({"accept": True, "text": "welcome"})
     Group("chat").add(message.reply_channel)
 
+
 def ws_disconnect(message):
     Group('test').discard(message.reply_channel)
+
 
 def ws_message(message):
     Group('chat').send({"text": message.content['text']})

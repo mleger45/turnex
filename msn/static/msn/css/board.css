@@ -5,7 +5,7 @@
     min-height: 113px;
     line-height: 103px;
     background: #33454e;
-    color: #fff;
+    color: #fcfff5;
     text-transform: uppercase;
     font-size: 3rem;
     
@@ -14,7 +14,7 @@
 .board-sidebar-number {
     min-height: 183px;
     font-size: 10rem;
-    color: #fff;
+    color: #fcfff5;
 }
 
 .sidebar-list-box {
@@ -37,11 +37,17 @@
     background: #33454e;
     min-height: 95px;
     margin-top: 5px;
+    line-height: 80px;
 }
 
 .board-media {
-    border-right: 4px solid #fff;
-    border-left:  4px solid #fff;
+    border-right: 4px solid #fcfff5;
+    border-left:  4px solid #fcfff5;
+    border-top:   4px solid #fcfff5;
+}
+
+.board-sidebar-ticket {
+    border-top:   4px solid #fcfff5;
 }
 
 .board-widgets {
@@ -51,11 +57,10 @@
 .board-widget-date,
 .board-widget-weather {
     text-align: center;
-    border: 4px solid #fff;
+    border: 4px solid #fcfff5;
     flex: 1;
     min-height: 257px;
     background: #33454e;
-    color: #fff;
 }
 
 #show-date {

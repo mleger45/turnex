@@ -2,8 +2,6 @@ from forms.models import TurnexForm
 import requests
 
 
-
-
 def get_forms():
     return TurnexForm.objects.filter(published=True).order_by('order')
 

@@ -10,7 +10,6 @@ from api.v1.serializers.form import TurnexFormSerializer
 
 
 class TurnexFormView(ListModelMixin, RetrieveModelMixin, GenericViewSet):
+    '''View for Forms'''
     queryset = TurnexForm.objects.filter(published=True)
     serializer_class = TurnexFormSerializer
-
-
