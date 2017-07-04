@@ -133,7 +133,15 @@ socket.onmessage = function(e) {
     }
 }
 socket.onopen = function() {
+    var eventRegister =
+    {
+        event: 'form-register',
+        userAgent: navigator.userAgent
+    }
+    socket.send(JSON.stringify(eventRegister));
     console.log('conexion started...');
+
+
 }
 // Call onopen directly if socket is already open
 if (socket.readyState == WebSocket.OPEN) socket.onopen();

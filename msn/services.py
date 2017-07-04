@@ -1,5 +1,6 @@
 from forms.models import TurnexForm
 import requests
+from django.conf import settings
 
 
 def get_forms():
@@ -7,7 +8,7 @@ def get_forms():
 
 
 def get_weather():
-    '''
+    """
     The information comes with this format:
     {
     "coord": {
@@ -53,8 +54,8 @@ def get_weather():
     "name": "London",
     "cod": 200
 }
-    '''
-    data = requests.get('http://api.openweathermap.org/data/2.5/weather?id=3435910&APPID=ee62653c519fc3e075ab00fddd4461b0')
+    """
+    data = requests.get(getattr(settings, 'WEATHER_API', ''))
     return extract_info(data.json())
 
 
@@ -62,7 +63,8 @@ def extract_info(data):
     weather = {}
     icon = data['weather'][0]['icon']
     temp = "{0:.2f}".format(data['main']['temp'] - 273.15)
-    weather['url'] = 'http://openweathermap.org/img/w/{}.png'.format(icon)
+    # weather['url'] = 'http://openweathermap.org/img/w/{}.png'.format(icon)
+    weather['url'] = getattr(settings, 'WEATHER_API_URL', '{}').format(icon)
     weather['temperature'] = temp
     weather['humidity'] = data['main']['humidity']
     return weather

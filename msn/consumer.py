@@ -1,3 +1,4 @@
+import json
 import logging
 
 from channels import Group
@@ -5,21 +6,16 @@ from channels import Group
 
 LOG = logging.getLogger(__name__)
 
-# TODO: Take a look on best practices to handle websockets in django
-
-
 def ws_connect(message):
-    print('<<< CONNECTED >>>')
-
-    Group('queue').add(message.reply_channel)
     LOG.info('>>>>>  RECEIVED NEW CONNECTION <<<<<')
     message.reply_channel.send({"accept": True, "text": "welcome"})
-    Group("chat").add(message.reply_channel)
+    Group("turnex").add(message.reply_channel)
 
 
 def ws_disconnect(message):
-    Group('test').discard(message.reply_channel)
+    Group('turnex').discard(message.reply_channel)
 
 
 def ws_message(message):
-    Group('chat').send({"text": message.content['text']})
+    
+    Group('turnex').send({"text": message.content['text']})

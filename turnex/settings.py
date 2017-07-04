@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['turnex.local.com', 'localhost']
 
+WEATHER_API = 'http://api.openweathermap.org/data/2.5/weather?id=3435910&APPID=ee62653c519fc3e075ab00fddd4461b0'
+WEATHER_API_URL = 'http://openweathermap.org/img/w/{}.png'
 
 # Application definition
 
