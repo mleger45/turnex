@@ -86,3 +86,19 @@
 #audio-box {
     display: none;
 }
+
+.animate-blink {
+    animation-name: blink;
+    animation-duration: 800ms;
+    animation-delay: 1s;
+    animation-iteration-count: 5;
+}
+
+@keyframes blink {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

@@ -93,17 +93,29 @@ function makeSomeNoise() {
     document.getElementById("audio").play();
 }
 
+function shine(){
+    document.getElementsByClassName('board-sidebar-number')[0].classList.add('animate-blink');
+    setTimeout(unshine, 2000);
+}
+
+function unshine(){
+    document.getElementsByClassName('board-sidebar-number')[0].classList.remove('animate-blink');
+}
+
 clearStorage();
 var socket = new WebSocket("ws://" + window.location.host + "/");
-
 socket.onmessage = function(e) {
     try {
         var a = JSON.parse(e.data);
-        var tuple = a.type.split("*");
+
+        console.log('EVENT:', a.event)
+
+        if(a.event === 'server-ticket-broadcast'){
+        var tuple = a.body.type.split("*");
 
         var newTicket = {
             type: tuple[0],
-            value: a.value,
+            value: a.body.value,
             color: tuple[1],
         };
 
@@ -118,15 +130,31 @@ socket.onmessage = function(e) {
             saveTicket(newTicket);
         }
         makeSomeNoise();
+        shine();
+
+        }
+        else if(a.event === 'server-ack-register'){
+            console.info(a.body);
+        }
+        else if(a.event === 'exec:ring-the-bell'){
+            makeSomeNoise();
+            shine();
+        }
 
 
     } catch(err) {
-        console.error('error', e.data, err);
+        console.error('ERROR:', err, 'DATA:', e.data);
     }
 
 }
 socket.onopen = function() {
-    // socket.send("hello world");
+    var eventRegister =
+    {
+        event: 'board-register',
+        userAgent: navigator.userAgent
+    };
+    socket.send(JSON.stringify(eventRegister));
+    console.log('...conexion starting...');
 }
 // Call onopen directly if socket is already open
 if (socket.readyState == WebSocket.OPEN) socket.onopen();

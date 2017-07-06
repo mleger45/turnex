@@ -7,7 +7,7 @@
  {% block title %}Forms Viewer{% endblock %}
  
  {% block header %}
-    <div class="header">TURNEX HEADER</div>
+    <div class="header"><i>TURNEX HEADER</i><a href="#" onclick="return ring();">Ring the Bell</a></div>
 {% endblock %}
 
 {% block content%}
@@ -108,39 +108,43 @@ var socket = new WebSocket("ws://" + window.location.host + "/");
 socket.onmessage = function(e) {
     try {
         var a = JSON.parse(e.data);
-        var tuple = a.type.split("*");
 
-        var newTicket = {
-            type: tuple[0],
-            value: a.value,
-            color: tuple[1],
-        };
+        if(a.event === 'server-ticket-broadcast'){
+            var tuple = a.body.type.split("*");
+            var newTicket = {
+                type: tuple[0],
+                value: a.body.value,
+                color: tuple[1],
+            };
 
-        updateTicket(newTicket);
+            updateTicket(newTicket);
 
-        if(existOldTicket()) {
-            var oldTicket = getOldTicket();
-            updateList(oldTicket);
-            saveTicket(newTicket);
+            if(existOldTicket()) {
+                var oldTicket = getOldTicket();
+                updateList(oldTicket);
+                saveTicket(newTicket);
+            }
+            else {
+                saveTicket(newTicket);
+            }
         }
-        else {
-            saveTicket(newTicket);
+        else if(a.event === 'server-ack-register'){
+            console.info(a.body);
         }
-
 
     } catch(err) {
-        console.info('Info:', e.data,);
+        console.error('ERROR:', err, 'DATA:', e.data);
     }
 }
+
 socket.onopen = function() {
     var eventRegister =
     {
         event: 'form-register',
         userAgent: navigator.userAgent
-    }
+    };
     socket.send(JSON.stringify(eventRegister));
-    console.log('conexion started...');
-
+    console.log('...conexion starting...');
 
 }
 // Call onopen directly if socket is already open
@@ -161,16 +165,30 @@ function sendTicket(event){
     var value = document.getElementById('input-'+form).value;
     var radio = document.getElementById(form).elements["rd-"+form].value;
 
-    var ticket = {
+    var body = {
         source: form,
         value: value,
         type: radio
     };
 
-    if(valid(ticket)) {
-        socket.send(JSON.stringify(ticket));
+    var payload = {
+        event: 'next-ticket',
+        body:body
+    };
+
+    if(valid(payload.body)) {
+        socket.send(JSON.stringify(payload));
         document.getElementById(form).reset();
     }
+}
+
+function ring(){
+    console.log('YES!');
+    var payload = {
+        event: 'ring-the-bell'
+    };
+    socket.send(JSON.stringify(payload));
+    return false;
 }
 
 </script>

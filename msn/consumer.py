@@ -1,14 +1,14 @@
 import json
-import logging
 
 from channels import Group
-# from channels.sessions import channel_session
 
-LOG = logging.getLogger(__name__)
+from .events import EventTurnex
+
+event_dispatcher = EventTurnex()
+
 
 def ws_connect(message):
-    LOG.info('>>>>>  RECEIVED NEW CONNECTION <<<<<')
-    message.reply_channel.send({"accept": True, "text": "welcome"})
+    message.reply_channel.send({"accept": True})
     Group("turnex").add(message.reply_channel)
 
 
@@ -17,5 +17,5 @@ def ws_disconnect(message):
 
 
 def ws_message(message):
-    
-    Group('turnex').send({"text": message.content['text']})
+    response = event_dispatcher.process(message['text'])
+    Group('turnex').send({"text": response})
