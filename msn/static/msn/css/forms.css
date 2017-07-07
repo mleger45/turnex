@@ -1,11 +1,11 @@
 
 
 .header {
-    background: #193542;
-    color: #fff;
     min-height: 35px;
     line-height: 35px;
     padding-left: 30px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .footer{
@@ -20,13 +20,14 @@
     display: flex;
     flex-direction: column;
     flex:2;
+    background: #e6e6e6;
 }
 
 .form {
     min-height: 257px;
     display: flex;
     padding-top: 40px;
-    border-bottom: 2px solid #e6e6e6;
+    border: 1px solid white;
 }
 
 .form-title {
@@ -70,10 +71,13 @@
 
 .sidebar {
     flex: 1;
-    background: #e6e6e6;
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    -webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
 }
 
 .sidebar-current-ticket {
@@ -120,3 +124,16 @@
     position: relative;
     top: 10px;
 }
+
+.bell {
+ background-color: #095768;
+}
+
+.bell img {
+    width: 50px;
+}
+
+.img {
+    display: flex;
+}
+

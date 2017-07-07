@@ -7,23 +7,47 @@
 
 {% block content %}
 <div class="content">
-        <div class="board-media">
-           <video autoplay loop>
-                <source src="{% static "msn/media/video.mp4" %}" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
+    <div class="board-ticket">
+    </div>
+    <div class="board-media">
+        <video autoplay loop>
+            <source src="{% static "msn/media/video.mp4" %}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
 
-        <div class="board-widgets"> 
-            <div class="board-widget-date">
-                <div id="show-date">cargando...</div>
-            </div>
-            <div class="board-widget-weather">
-                <div id="show-weather">
-                    <div id="weather"><img src= "{{weather.url}}"/> <span>{{weather.temperature}} &#8451;</span></div>
-                </div>
-            </div>
-        </div>
+    <div class="board-list"> 
+    <div class="marquesina"> 
+        <marquee>
+            <span>Últimos llamados</span>
+            <span class="dark">Últimos llamados</span>
+            <span>Últimos llamados</span>
+            <span class="dark">Últimos llamados</span>
+            <span>Últimos llamados</span>
+            <span class="dark">Últimos llamados</span>
+            <span>Últimos llamados</span>
+            <span class="dark">Últimos llamados</span>
+            <span>Últimos llamados</span>
+            <span class="dark">Últimos llamados</span>
+            <span>Últimos llamados</span>
+            <span class="dark">Últimos llamados</span>
+            <span>Últimos llamados</span>
+            <span class="dark">Últimos llamados</span>
+            <span>Últimos llamados</span>
+            <span class="dark">Últimos llamados</span>
+            <span>Últimos llamados</span>
+            <span class="dark">Últimos llamados</span>
+            <span>Últimos llamados</span>
+            <span class="dark">Últimos llamados</span>
+            <span>Últimos llamados</span>
+            <span class="dark">Últimos llamados</span>
+            <span>Últimos llamados</span>
+            <span class="dark">Últimos llamados</span>
+        </marquee>
+    </div>
+            <ul class="old-tickets" id="list">
+            </ul>
+    </div>
 
 <div id="audio-box">
     <audio  id="audio" controls>
@@ -37,134 +61,15 @@
 
 {% block sidebar %}
     <div class ="sidebar">
-        <div class="board-sidebar-ticket">
-            <div class="board-sidebar-type">TURNO</div>
-            <div class="board-sidebar-number"></div>
-        </div>
-        <div class="board-sidebar-list">
-            <ul class="sidebar-list" id="list">
-            </ul>
+        <div class="board-widgets">
+            <div id="show-weather">
+                <img src= "{{weather.url}}"/> <span>{{weather.temperature}} &#8451;</span>
+            </div>
+            <div id="show-date">cargando...</div>
         </div>
     </div>
 {% endblock%}
 
 {% block scripts %}
-<script type="text/javascript">
-
-function clearStorage() {
-    localStorage.clear('oldTicket');
-}
-
-function updateTicket(obj) {
-    document.getElementsByClassName('board-sidebar-type')[0].innerHTML = obj.type;
-    document.getElementsByClassName('board-sidebar-number')[0].style.backgroundColor = obj.color;
-    document.getElementsByClassName('board-sidebar-number')[0].innerHTML = obj.value;
-}
-
-function createTicket(ticket){
-    var li = document.createElement('li');
-    li.innerHTML = ticket.value + " <div class=\"sidebar-list-box\" style=\"background: "+ticket.color+"\"></div>";
-    return li;
-}
-
-function existOldTicket() {
-    return localStorage.hasOwnProperty('oldTicket');
-}
-
-function getOldTicket() {
-    return JSON.parse(localStorage.oldTicket);
-}
-
-function saveTicket(ticket) {
-    localStorage.oldTicket = JSON.stringify(ticket);
-}
-
-function updateList(ticket) {
-    var list = document.getElementById('list');
-    var ticketElement = createTicket(ticket);
-    list.prepend(ticketElement);
-    var elem = list.children.length;
-    if(elem == 6) {
-        list.lastElementChild.remove();
-    }
-}
-
-function makeSomeNoise() {
-    document.getElementById("audio").play();
-}
-
-function shine(){
-    document.getElementsByClassName('board-sidebar-number')[0].classList.add('animate-blink');
-    setTimeout(unshine, 2000);
-}
-
-function unshine(){
-    document.getElementsByClassName('board-sidebar-number')[0].classList.remove('animate-blink');
-}
-
-clearStorage();
-var socket = new WebSocket("ws://" + window.location.host + "/");
-socket.onmessage = function(e) {
-    try {
-        var a = JSON.parse(e.data);
-
-        console.log('EVENT:', a.event)
-
-        if(a.event === 'server-ticket-broadcast'){
-        var tuple = a.body.type.split("*");
-
-        var newTicket = {
-            type: tuple[0],
-            value: a.body.value,
-            color: tuple[1],
-        };
-
-        updateTicket(newTicket);
-        
-        if(existOldTicket()) {
-            var oldTicket = getOldTicket();
-            updateList(oldTicket);
-            saveTicket(newTicket);
-        }
-        else {
-            saveTicket(newTicket);
-        }
-        makeSomeNoise();
-        shine();
-
-        }
-        else if(a.event === 'server-ack-register'){
-            console.info(a.body);
-        }
-        else if(a.event === 'exec:ring-the-bell'){
-            makeSomeNoise();
-            shine();
-        }
-
-
-    } catch(err) {
-        console.error('ERROR:', err, 'DATA:', e.data);
-    }
-
-}
-socket.onopen = function() {
-    var eventRegister =
-    {
-        event: 'board-register',
-        userAgent: navigator.userAgent
-    };
-    socket.send(JSON.stringify(eventRegister));
-    console.log('...conexion starting...');
-}
-// Call onopen directly if socket is already open
-if (socket.readyState == WebSocket.OPEN) socket.onopen();
-
-function showTime() {
-    var d = new Date();
-    document.getElementById("show-date").innerHTML = d.toLocaleDateString();
-}
-
-setInterval(showTime,1000);
-
-</script>
+<script  type="text/javascript" src="{% static "msn/js/board.js" %}"></script>
 {% endblock %}

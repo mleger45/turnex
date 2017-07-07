@@ -48,33 +48,46 @@ table {
 /* Main configuration for the container */
 
 .wrapper {
-	display: flex;
-	flex-direction: column;
+	/*display: flex;
+	flex-direction: column;*/
+	
 }
 
 .container {
     display: flex;
-    height: 100vh;
-    justify-content: flex-end;
+	height: 100vh;
 }
 
 .content {
-	flex-grow: 1;
+	flex: 4;
+	background: lightblue;
 }
 
 .sidebar {
-	flex-basis: 287px;
-	
+	flex: 1.1;
+	background: #f1f1f1;
+	z-index: 100;
+	padding: 5px 20px 0px 20px;
+	box-sizing: border-box;
+
+	-webkit-box-shadow: -9px 10px 18px -9px rgba(0,0,0,0.4);
+	-moz-box-shadow: -9px 10px 18px -9px rgba(0,0,0,0.4);
+	box-shadow: -9px 10px 18px -9px rgba(0,0,0,0.4);
 }
 
 video {
+	max-height: 536px;
 	object-fit: fill;
-	max-height: 531px;
 	width: 100%;
 }
+
 /* Main configuration for the container */
-body{
-	background: #fcfff5;
-	color: #fcfff5;
-	font-family: 'Francois One', sans-serif;
+body {
+	font-family: 'Montserrat', sans-serif;
+	font-family: 'Raleway', sans-serif;
 }
+
+#audio-box {
+    display: none;
+}
+
