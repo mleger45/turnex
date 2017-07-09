@@ -1,6 +1,10 @@
 
 
-var types = ["<h1>Mandatario</h1>", "<h2>Usuario</h2>", "<h3>Site</h3>"];
+var types = [
+    "<p class=\"title\">Mandatario</p><p class=\"text\">Aquellos con credencial y vienen a hacer gestoría en nombre de terceros.</p>", 
+    "<p class=\"title\">Usuario</p><p class=\"text\">Titulares o terceros de dominio que no son acreedores de credencial, y no han hecho turnos online.</p>", 
+    "<p class=\"title\">Site</p> <p class=\"text\">Aquellos que reservan su turno electrónicamente por Internet</p>"
+];
 var colors = ["#f0c944","#ff8484", "#6ab9ec"];
 document.getElementsByClassName('front')[0].innerHTML = types[0];
 document.getElementsByClassName('front')[0].style.backgroundColor = colors[0];

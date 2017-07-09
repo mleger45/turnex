@@ -127,6 +127,8 @@
 
 .bell {
  background-color: #095768;
+ padding: 10px;
+ box-sizing: border-box;
 }
 
 .bell img {
