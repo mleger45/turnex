@@ -1,4 +1,16 @@
 
+
+var types = ["<h1>Mandatario</h1>", "<h2>Usuario</h2>", "<h3>Site</h3>"];
+var colors = ["#f0c944","#ff8484", "#6ab9ec"];
+document.getElementsByClassName('front')[0].innerHTML = types[0];
+document.getElementsByClassName('front')[0].style.backgroundColor = colors[0];
+
+document.getElementsByClassName('back')[0].innerHTML = types[1];
+document.getElementsByClassName('back')[0].style.backgroundColor = colors[1];
+var global = 1;
+var isFront = true;
+
+
 function clearStorage() {
     localStorage.clear('oldTicket');
 }
@@ -108,10 +120,40 @@ socket.onopen = function() {
 if (socket.readyState == WebSocket.OPEN) socket.onopen();
 
 function showTime() {
-    var spanishDays = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado', 'Dommingo'];
+    var spanishDays = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado'];
     var d = new Date();
-    var day = d.getDay()-1; 
-    document.getElementById("show-date").innerHTML =  spanishDays[day]+" "+d.toLocaleDateString();
+    var day = d.getDay();
+    document.getElementById("show-date").innerHTML = spanishDays[day]+" "+d.toLocaleDateString();
 }
 
+function switchTypes(){
+    next(types);
+    document.getElementsByClassName('flip-container')[0].classList.toggle('hover');
+}
+
+
+setInterval(switchTypes, 5000);
 setInterval(showTime,1000);
+
+function next(arr){
+    var frontHtml = document.getElementsByClassName('front')[0];
+    var backHtml = document.getElementsByClassName('back')[0];
+    var elem = "";
+    if(global + 1 === arr.length){
+         global = 0;
+     }else {
+        global++;
+    }
+
+    elem = arr[global];
+    col = colors[global];
+    if(!isFront){
+        backHtml.innerHTML = elem;
+        backHtml.style.backgroundColor = col;
+    }else
+    {
+        frontHtml.innerHTML = elem;
+        frontHtml.style.backgroundColor = col;
+    }
+    isFront = !isFront;
+}

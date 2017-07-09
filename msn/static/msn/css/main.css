@@ -60,13 +60,14 @@ table {
 
 .content {
 	flex: 4;
-	background: lightblue;
+	display: flex;
+	flex-direction: column;
 }
 
 .sidebar {
 	flex: 1.1;
 	background: #f1f1f1;
-	z-index: 100;
+	z-index: 0;
 	padding: 5px 20px 0px 20px;
 	box-sizing: border-box;
 
@@ -76,7 +77,7 @@ table {
 }
 
 video {
-	max-height: 536px;
+	max-height: 500px;
 	object-fit: fill;
 	width: 100%;
 }
@@ -90,4 +91,3 @@ body {
 #audio-box {
     display: none;
 }
-
