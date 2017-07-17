@@ -25,7 +25,7 @@ SECRET_KEY = '%(2tj2=fbi9%927nb7@ivwqs$i3-bncbo55van+bffr6$j67!s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['turnex.local.com', 'localhost']
+ALLOWED_HOSTS = ['172.19.0.4', 'localhost']
 
 WEATHER_API = 'http://api.openweathermap.org/data/2.5/weather?id=3435910&APPID=ee62653c519fc3e075ab00fddd4461b0'
 WEATHER_API_URL = 'http://openweathermap.org/img/w/{}.png'
@@ -136,7 +136,8 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "asgi_redis.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+            # "hosts": [os.environ.get('REDIS_URL', 'redis://192.168.99.100:6379')],
+            "hosts": [("redis", 6379)],
         },
         "ROUTING": "msn.routing.channel_routing",
     },

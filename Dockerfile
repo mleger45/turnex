@@ -1,15 +1,15 @@
-FROM python:3.6.0
+FROM python:3.5
 
-RUN useradd --system turnex && \
+RUN useradd --system app && \
     mkdir /app && \
     chown app:app /app
 
 ADD requirements.txt entrypoint-*.sh manage.py /app/
-ADD turnex /app/
+ADD . /app/
 
 RUN pip install -r /app/requirements.txt
 
 VOLUME ["/app"]
-USER turnex
+USER app
 WORKDIR /app
 ENV PYTHONUNBUFFERED 1
