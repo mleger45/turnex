@@ -104,6 +104,9 @@ socket.onmessage = function(e) {
             makeSomeNoise();
             shine();
         }
+        else if(a.event === 'weather-ack-notify'){
+            updateWeather(a.weather);
+        }
 
 
     } catch(err) {
@@ -138,6 +141,7 @@ function switchTypes(){
 
 setInterval(switchTypes, 5000);
 setInterval(showTime,1000);
+setInterval(weather, 60*60*1000); // 1 hour
 
 function next(arr){
     var frontHtml = document.getElementsByClassName('front')[0];
@@ -160,4 +164,18 @@ function next(arr){
         frontHtml.style.backgroundColor = col;
     }
     isFront = !isFront;
+}
+
+function weather(){
+    eventWeather = {
+        'event': 'weather-notify'
+    };
+    socket.send(JSON.stringify(eventWeather));
+    console.log('weather successfull');
+}
+
+function updateWeather(weather){
+    console.log('UPDATING THE WEATHER: ', weather);
+    document.getElementById('js-img-weather').setAttribute('src', weather.url);
+    document.getElementById('js-temperature').innerHTML = weather.temperature + " &#8451;";
 }

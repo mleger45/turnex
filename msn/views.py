@@ -15,11 +15,8 @@ def forms(request):
 
 
 def board(request):
-    print('start')
     weather = services.get_weather()
-    print('finish')
     context = {'weather': weather}
-    print(weather)
     return render(request, 'msn/board.j2', context)
 
 

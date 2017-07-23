@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 import json
+from msn import services
 
 
 class EventTurnex(object):
@@ -7,6 +8,7 @@ class EventTurnex(object):
     BOARD_REGISTER = 'board-register'
     NEXT_TICKET = 'next-ticket'
     WEATHER_NOTIFY = 'weather-notify'
+    WEATHER_ACK_NOTIFY = 'weather-ack-notify'
     SERVER_ACK_REGISTER = 'server-ack-register'
     SERVER_TICKET_BROADCAST = 'server-ticket-broadcast'
     RING_THE_BELL = 'ring-the-bell'
@@ -27,6 +29,7 @@ class EventTurnex(object):
             self.BOARD_REGISTER: self.board_register,
             self.NEXT_TICKET: self.next_ticket,
             self.RING_THE_BELL: self.ring_the_bell,
+            self.WEATHER_NOTIFY: self.weather_notify,
         }
 
     def process(self, message):
@@ -63,6 +66,13 @@ class EventTurnex(object):
             "event": 'exec:{}'.format(data['event'])
         }
         return json.dumps(exec_data)
+
+    def weather_notify(self, data):
+        result = {}
+        weather = services.get_weather()
+        result['event'] = self.WEATHER_ACK_NOTIFY
+        result['weather'] = weather
+        return json.dumps(result)
 
     def valid(self, raw_message):
         try:
