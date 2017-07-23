@@ -171,11 +171,9 @@ function weather(){
         'event': 'weather-notify'
     };
     socket.send(JSON.stringify(eventWeather));
-    console.log('weather successfull');
 }
 
 function updateWeather(weather){
-    console.log('UPDATING THE WEATHER: ', weather);
     document.getElementById('js-img-weather').setAttribute('src', weather.url);
     document.getElementById('js-temperature').innerHTML = weather.temperature + " &#8451;";
 }
