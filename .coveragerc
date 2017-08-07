@@ -1,0 +1,14 @@
+[run]
+branch = True
+include = ./*
+omit =
+    .env/*
+    */migrations/*
+    */settings/*
+    */*test*.py
+    */admin.py
+    */admin/*.py
+    */urls.py
+    manage.py
+    terrain/*
+    */features/*
