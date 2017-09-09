@@ -21,4 +21,5 @@ def board(request):
 
 
 def config(request):
-    return render(request, 'msn/config.j2', {})
+    form_set = services.get_forms_config()
+    return render(request, 'msn/config.j2', {'metaforms': form_set})

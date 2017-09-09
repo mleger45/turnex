@@ -1,3 +1,4 @@
+from forms.forms import FormDetailSet
 from forms.models import TurnexForm
 import requests
 from django.conf import settings
@@ -5,6 +6,24 @@ from django.conf import settings
 
 def get_forms():
     return TurnexForm.objects.filter(published=True).order_by('order')
+
+
+def get_forms_config():
+    """return the details of the form (should have a better name for this field)"""
+    # TODO: create Form Manager in order to hide published parameter
+    # return [
+    #     FormDetailSet(initial=details)
+    #     for details in TurnexForm.objects.filter(published=True).order_by(
+    #         'order').values_list('details', flat=True)
+    # ]
+    details = TurnexForm.objects.filter(
+        published=True).order_by('order').values_list('details')
+
+    sets = [FormDetailSet(initial=detail) for detail in details]
+
+    print("SIZE OF sets: {}".format(len(sets)))
+
+    return sets
 
 
 def get_weather():

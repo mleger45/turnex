@@ -1,0 +1,168 @@
+.board-ticket {
+    text-align: center;
+    min-height: 185px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 7rem;
+    color: #f1f1f1;
+}
+
+.board-list {
+    min-height: 70px;
+}
+
+.board-widgets {
+    min-height: 183px;
+    border-bottom: 2px solid #b9b9b9;
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.animate-blink {
+    animation-name: blink;
+    animation-duration: 800ms;
+    animation-delay: 1s;
+    animation-iteration-count: 5;
+}
+
+@keyframes blink {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+#show-weather {
+    flex: 2;
+    display: flex;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#show-weather img, #show-weather span {
+    flex: 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+ #show-weather span {
+     color: #b1b1b1;
+     font-size: 1.9931rem;
+     text-align: right;
+}
+
+#show-date {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 1.50rem;
+    color: #b1b1b1;
+}
+
+.marquesina {
+    background: #414141;
+    color: white;
+    padding-top: 5px;
+    letter-spacing: 1rem;
+    text-transform: uppercase;
+}
+
+.dark {
+    color: #7F7F7F;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.old-tickets {
+    display: flex;
+}
+
+.old-tickets li {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 85px;
+}
+
+.list-ticket{
+    background: #f1f1f1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex: 1;
+}
+
+.list-box {
+    height: 10px;
+}
+
+
+/* entire container, keeps perspective */
+.flip-container {
+    perspective: 1000px;
+}
+    /* flip the pane when hovered */
+    .flip-container:hover .flipper, .flip-container.hover .flipper {
+    transform: rotateY(180deg);
+	}
+
+.flip-container, .front, .back {
+	width: 100%;
+    box-sizing: border-box;
+}
+
+/* flip speed goes here */
+.flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #e6e6e6;
+    font-weight: bolder;
+    text-align: center;
+    min-height: 612px;
+    padding: 10px;
+    padding-top: 200px;
+    box-sizing: border-box;
+}
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 40px;
+    background: #414141;
+    border-radius: 3px;
+}
+
+.text {
+    font-weight: bolder;
+    font-size: 1.50rem;
+}
+
+/* front pane, placed above back */
+.front {
+    z-index: 2;
+    /* for firefox 31 */
+    transform: rotateY(0deg);
+    /*border: 1px solid red;*/
+}
+
+/* back, initially hidden pane */
+.back {
+    transform: rotateY(180deg);
+    /*background: gray;*/
+}

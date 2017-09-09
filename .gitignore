@@ -125,5 +125,4 @@ tests/report/
 .vscode/
 *.iml
 *.xml
-static/*
 dump.*

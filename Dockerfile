@@ -5,7 +5,10 @@ RUN useradd --system app && \
     chown app:app /app
 
 ADD requirements.txt entrypoint-*.sh manage.py /app/
+
 ADD . /app/
+
+RUN chmod 777 /app/*
 
 RUN pip install -r /app/requirements.txt
 

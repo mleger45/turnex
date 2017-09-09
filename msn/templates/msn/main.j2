@@ -1,4 +1,11 @@
 {% extends "base.j2"%}
 {% block content%}
-<div> Welcome to Turnex </div>
+<h2>Considerations</h2>
+<p>To run this project, please type:
+<strong>docker-compose -f docker-compose.development up</strong>
+</p>
+to configure the forms, type <a href="{% url 'msn:main_view' %}">here</a>
+
+
+
 {% endblock%}

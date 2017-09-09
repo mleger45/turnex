@@ -11,10 +11,13 @@ class TurnexForm(models.Model):
     Basic form on turnex
     '''
     name = models.CharField(max_length=10)
-    details = JSONField(blank=True, null=True, default=None,
-                        help_text='Example: [{type: Site, color: #12345}]')
-    published = models.BooleanField(db_index=True, editable=True,
-                                    default=False)
+    details = JSONField(
+        blank=True,
+        null=True,
+        default=None,
+        help_text='Example: [{type: Site, color: #12345}]')
+    published = models.BooleanField(
+        db_index=True, editable=True, default=False)
     order = models.IntegerField()
 
     def __repr__(self):
@@ -22,3 +25,9 @@ class TurnexForm(models.Model):
 
     def __str__(self):
         return 'Form: {}'.format(self.name)
+
+    def get_details_objects(self):
+        result = []
+        for elem in self.details:
+            print(str(elem))
+        return result

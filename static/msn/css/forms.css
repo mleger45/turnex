@@ -1,0 +1,141 @@
+
+
+.header {
+    min-height: 35px;
+    line-height: 35px;
+    padding-left: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer{
+    text-align: center;
+}
+
+.form-content {
+    display: flex;
+}
+
+.forms {
+    display: flex;
+    flex-direction: column;
+    flex:2;
+    background: #e6e6e6;
+}
+
+.form {
+    min-height: 257px;
+    display: flex;
+    padding-top: 40px;
+    border: 1px solid white;
+}
+
+.form-title {
+    text-align: right;
+    color: #fff;
+    flex-basis: 200px;
+}
+
+.form-title p {
+    min-height: 64px;
+    background: #3e606f;
+    line-height: 64px;
+    padding-right: 40px;
+    text-transform: uppercase;
+}
+
+.form-raw {
+    padding-left: 47px;
+}
+
+.color-box {
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+}
+
+.form-type {
+    margin-bottom: 23px;
+    display: flex;
+    align-items: center;
+    color: #193542;
+}
+
+.form-type > * {
+    margin: 3px;
+}
+
+.form-button {
+    margin-top: 10px;
+}
+
+.sidebar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    -webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+
+.sidebar-current-ticket {
+    flex: 1;
+    flex-basis: 100%;
+    align-self: stretch;
+    padding: 30px;
+}
+
+.sidebar-called-ticket {
+    flex: 1;
+    flex-basis: 100%;
+    align-self: stretch;
+    flex-basis: 100%;
+    padding: 30px;
+}
+
+.sidebar-ticket {
+    height: 100%;
+    text-align: center;
+    color: #fff;
+    line-height: 270px;
+    font-size: 120pt;
+}
+
+.sidebar-list {
+    padding-top: 10px;
+    text-align: center;
+}
+
+.sidebar-list li{
+    display:block;
+    margin-bottom: 15px;
+    color: #898989;
+    font-size: 2rem;
+    line-height: 80px;
+}
+
+.sidebar-list-box {
+    display: inline-block;
+    width: 46px;
+    height: 16px;
+    float: right;
+    position: relative;
+    top: 10px;
+}
+
+.bell {
+ background-color: #095768;
+ padding: 10px;
+ box-sizing: border-box;
+}
+
+.bell img {
+    width: 50px;
+}
+
+.img {
+    display: flex;
+}
+

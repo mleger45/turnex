@@ -1,1 +1,17 @@
-configuracion
+configuracion:
+
+
+    {% for formset in metaforms %}
+<div class="form">
+    {{ formset.management_form }}
+    <h2>Formulario</h2>
+    <form action="#">
+        <table>
+            {% for form in formset %}
+                {{"ok"}}
+            {% endfor %}
+                
+        </table>
+    </form>
+    {% endfor %}
+</div>
