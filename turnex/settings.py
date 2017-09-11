@@ -25,7 +25,8 @@ SECRET_KEY = '%(2tj2=fbi9%927nb7@ivwqs$i3-bncbo55van+bffr6$j67!s'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '172.19.0.4', 'localhost', '192.168.99.100', 'proxiturno.local.com'
+    '172.19.0.4', 'localhost', '192.168.99.100', 'proxiturno.local.com',
+    '192.168.1.35', 'proxiturno.herokuapp.com'
 ]
 
 WEATHER_API = 'http://api.openweathermap.org/data/2.5/weather?id=3435910&APPID=ee62653c519fc3e075ab00fddd4461b0'
