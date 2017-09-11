@@ -67,7 +67,7 @@ function unshine(){
 }
 
 clearStorage();
-var socket = new WebSocket("ws://" + window.location.host + "/");
+var socket = new WebSocket("wss://" + window.location.host + "/");
 socket.onmessage = function(e) {
     try {
         var a = JSON.parse(e.data);
