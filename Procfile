@@ -1,2 +1,2 @@
-web: daphne turnex.asgi:channel_layer --port $PORT
-worker: python manage.py runworker 
+web: daphne turnex.asgi:channel_layer --port $PORT --bind 0.0.0.0
+worker: python manage.py runworker
