@@ -139,7 +139,7 @@ CHANNEL_LAYERS = {
         "BACKEND": "asgi_redis.RedisChannelLayer",
         "CONFIG": {
             # "hosts": [os.environ.get('REDIS_URL', 'redis://192.168.99.100:6379')],
-            #"hosts": [("redis", 6379)],
+            # "hosts": [("redis", 6379)],
             "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
         },
         "ROUTING": "msn.routing.channel_routing",
