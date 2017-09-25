@@ -1,15 +1,15 @@
-
-from rest_framework.mixins import (
-    RetrieveModelMixin,
-    ListModelMixin,
-)
-from rest_framework.viewsets import GenericViewSet
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 from forms.models import TurnexForm
 from api.v1.serializers.form import TurnexFormSerializer
 
 
-class TurnexFormView(ListModelMixin, RetrieveModelMixin, GenericViewSet):
+class TurnexFormView(APIView):
     '''View for Forms'''
-    queryset = TurnexForm.objects.filter(published=True)
-    serializer_class = TurnexFormSerializer
+
+    def get(self, request):
+        forms = TurnexForm.objects.filter(published=True)
+        serializer = TurnexFormSerializer(forms, many=True)
+        return Response(serializer.data)
+

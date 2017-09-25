@@ -3,7 +3,5 @@ from api.v1.views import TurnexFormView
 
 
 urlpatterns = [
-    url(r'^forms/$', TurnexFormView.as_view({
-        'get': 'list',
-    }), name="forms"),
+    url(r'^forms/$', TurnexFormView.as_view(), name="forms"),
 ]

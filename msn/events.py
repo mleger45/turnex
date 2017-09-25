@@ -4,6 +4,7 @@ from msn import services
 
 
 class EventTurnex(object):
+    """Event Handler"""
     FORM_REGISTER = 'form-register'
     BOARD_REGISTER = 'board-register'
     NEXT_TICKET = 'next-ticket'
@@ -20,7 +21,7 @@ class EventTurnex(object):
         WEATHER_NOTIFY,
         SERVER_ACK_REGISTER,
         SERVER_TICKET_BROADCAST,
-        RING_THE_BELL
+        RING_THE_BELL,
     ]
 
     def __init__(self):

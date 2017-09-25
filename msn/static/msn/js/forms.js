@@ -8,9 +8,9 @@ function updateTicket(obj) {
     document.getElementsByClassName('sidebar-ticket')[0].innerHTML = obj.value;
 }
 
-function createTicket(ticket){
+function createTicket(ticket) {
     var li = document.createElement('li');
-    li.innerHTML = ticket.value + " <div class=\"sidebar-list-box\" style=\"background: "+ticket.color+"\"></div>";
+    li.innerHTML = ticket.value + " <div class=\"sidebar-list-box\" style=\"background: " + ticket.color + "\"></div>";
     return li;
 }
 
@@ -31,7 +31,7 @@ function updateList(ticket) {
     var ticketElement = createTicket(ticket);
     list.prepend(ticketElement);
     var elem = list.children.length;
-    if(elem == 3) {
+    if (elem == 3) {
         list.lastElementChild.remove();
     }
 }
@@ -40,12 +40,12 @@ clearStorage();
 
 
 
-var socket = new WebSocket("wss://" + window.location.host + "/");
+var socket = new WebSocket("wss://" + window.location.host + "/"); // TODO: Provide ws routes from BE
 socket.onmessage = function(e) {
     try {
         var a = JSON.parse(e.data);
 
-        if(a.event === 'server-ticket-broadcast'){
+        if (a.event === 'server-ticket-broadcast') {
             var tuple = a.body.type.split("*");
             var newTicket = {
                 type: tuple[0],
@@ -55,35 +55,32 @@ socket.onmessage = function(e) {
 
             updateTicket(newTicket);
 
-            if(existOldTicket()) {
+            if (existOldTicket()) {
                 var oldTicket = getOldTicket();
                 updateList(oldTicket);
                 saveTicket(newTicket);
-            }
-            else {
+            } else {
                 saveTicket(newTicket);
             }
-        }
-        else if(a.event === 'server-ack-register'){
+        } else if (a.event === 'server-ack-register') {
             console.info(a.body);
         }
 
-    } catch(err) {
+    } catch (err) {
         console.error('ERROR:', err, 'DATA:', e.data);
     }
 }
 
 socket.onopen = function() {
-    var eventRegister =
-    {
-        event: 'form-register',
-        userAgent: navigator.userAgent
-    };
-    socket.send(JSON.stringify(eventRegister));
-    console.log('...conexion starting...');
+        var eventRegister = {
+            event: 'form-register',
+            userAgent: navigator.userAgent
+        };
+        socket.send(JSON.stringify(eventRegister));
+        console.log('...conexion starting...');
 
-}
-// Call onopen directly if socket is already open
+    }
+    // Call onopen directly if socket is already open
 if (socket.readyState == WebSocket.OPEN) socket.onopen();
 
 function valid(ticket) {
@@ -92,14 +89,14 @@ function valid(ticket) {
     var type = tuple[0];
     var color = tuple[1];
     var value = ticket.value;
-    var isValid =  type != "" && color != "" && value != "";
+    var isValid = type != "" && color != "" && value != "";
     return isValid;
 }
 
-function sendTicket(event){
+function sendTicket(event) {
     var form = event.form.id;
-    var value = document.getElementById('input-'+form).value;
-    var radio = document.getElementById(form).elements["rd-"+form].value;
+    var value = document.getElementById('input-' + form).value;
+    var radio = document.getElementById(form).elements["rd-" + form].value;
 
     var body = {
         source: form,
@@ -109,16 +106,16 @@ function sendTicket(event){
 
     var payload = {
         event: 'next-ticket',
-        body:body
+        body: body
     };
 
-    if(valid(payload.body)) {
+    if (valid(payload.body)) {
         socket.send(JSON.stringify(payload));
         document.getElementById(form).reset();
     }
 }
 
-function ring(){
+function ring() {
     var payload = {
         event: 'ring-the-bell'
     };

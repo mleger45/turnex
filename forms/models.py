@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 Models for  Forms
 '''
@@ -26,8 +27,16 @@ class TurnexForm(models.Model):
     def __str__(self):
         return 'Form: {}'.format(self.name)
 
-    def get_details_objects(self):
-        result = []
-        for elem in self.details:
-            print(str(elem))
-        return result
+    def get_user_types(self):
+        return self.types.all()
+
+
+class TurnexType(models.Model):
+    ''' User types for models '''
+    user_type = models.CharField(max_length=100)
+    color = models.CharField(max_length=10)
+    form_owner = models.ForeignKey(TurnexForm, on_delete=None, related_name='types')
+    description = models.TextField()
+
+    def __str__(self):
+        return '{} - {}'.format(self.form_owner.name ,self.user_type)

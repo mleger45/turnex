@@ -1,11 +1,11 @@
 .board-ticket {
-    text-align: center;
-    min-height: 185px;
+    color: #f1f1f1;
     display: flex;
-    justify-content: center;
     flex-direction: column;
     font-size: 7rem;
-    color: #f1f1f1;
+    justify-content: center;
+    min-height: 185px;
+    text-align: center;
 }
 
 .board-list {
@@ -13,10 +13,10 @@
 }
 
 .board-widgets {
-    min-height: 183px;
     border-bottom: 2px solid #b9b9b9;
     display: flex;
     flex-flow: column wrap;
+    min-height: 183px;
 }
 
 .animate-blink {
@@ -36,40 +36,41 @@
 }
 
 #show-weather {
-    flex: 2;
-    display: flex;
-    padding: 10px;
     box-sizing: border-box;
+    display: flex;
+    flex: 2;
+    padding: 10px;
 }
 
-#show-weather img, #show-weather span {
-    flex: 1px;
+#show-weather img,
+#show-weather span {
     display: flex;
+    flex: 1px;
     flex-direction: column;
     justify-content: center;
 }
 
- #show-weather span {
-     color: #b1b1b1;
-     font-size: 1.9931rem;
-     text-align: right;
+#show-weather span {
+    color: #b1b1b1;
+    font-size: 1.9931rem;
+    text-align: right;
 }
 
 #show-date {
-    flex: 1;
-    text-align: center;
+    color: #b1b1b1;
     display: flex;
-    justify-content: center;
+    flex: 1;
     flex-direction: column;
     font-size: 1.50rem;
-    color: #b1b1b1;
+    justify-content: center;
+    text-align: center;
 }
 
 .marquesina {
     background: #414141;
     color: white;
-    padding-top: 5px;
     letter-spacing: 1rem;
+    padding-top: 5px;
     text-transform: uppercase;
 }
 
@@ -84,50 +85,63 @@
 }
 
 .old-tickets li {
-    flex: 1;
-    text-align: center;
     display: flex;
-    flex-direction: column;
+    flex: 1;
+    flex-direction: column-reverse;
     min-height: 85px;
+    text-align: center;
 }
 
-.list-ticket{
-    background: #f1f1f1;
+.list-ticket {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-size: 1.3rem;
     flex: 1;
+    flex-direction: column;
+    font-size: 3.3rem;
+    font-weight: bolder;
+    justify-content: center;
 }
 
 .list-box {
-    height: 10px;
+    height: 20px;
+    box-shadow: -2px 0px 8px -2px rgba(0, 0, 0, 0.75);
 }
 
 
 /* entire container, keeps perspective */
+
 .flip-container {
     perspective: 1000px;
 }
-    /* flip the pane when hovered */
-    .flip-container:hover .flipper, .flip-container.hover .flipper {
-    transform: rotateY(180deg);
-	}
 
-.flip-container, .front, .back {
-	width: 100%;
+
+/* flip the pane when hovered */
+
+.flip-container:hover .flipper,
+.flip-container.hover .flipper {
+    transform: rotateY(180deg);
+}
+
+.flip-container,
+.front,
+.back {
+    width: 100%;
     box-sizing: border-box;
 }
 
+
 /* flip speed goes here */
+
 .flipper {
-	transition: 0.6s;
-	transform-style: preserve-3d;
-	position: relative;
+    transition: 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
 }
 
+
 /* hide back of pane during swap */
-.front, .back {
+
+.front,
+.back {
     backface-visibility: hidden;
     position: absolute;
     top: 0;
@@ -153,7 +167,9 @@
     font-size: 1.50rem;
 }
 
+
 /* front pane, placed above back */
+
 .front {
     z-index: 2;
     /* for firefox 31 */
@@ -161,7 +177,9 @@
     /*border: 1px solid red;*/
 }
 
+
 /* back, initially hidden pane */
+
 .back {
     transform: rotateY(180deg);
     /*background: gray;*/

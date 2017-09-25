@@ -9,13 +9,7 @@ def get_forms():
 
 
 def get_forms_config():
-    """return the details of the form (should have a better name for this field)"""
-    # TODO: create Form Manager in order to hide published parameter
-    # return [
-    #     FormDetailSet(initial=details)
-    #     for details in TurnexForm.objects.filter(published=True).order_by(
-    #         'order').values_list('details', flat=True)
-    # ]
+    """return the details of the form (should have a better name for this)"""
     details = TurnexForm.objects.filter(
         published=True).order_by('order').values_list('details')
 

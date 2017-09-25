@@ -19,11 +19,11 @@
         </div>
         <div class="form-raw">
         <form id="{{ form.name }}" method="POST" href="#">
-            {% for choice in form.details %}
-                 <div class="form-type">
-                    <div class="color-box" style="background: {{ choice.color }}"></div>
-                    <input type="radio" name="rd-{{ form.name }}" value="{{ choice.type }} * {{ choice.color }}" class="radio-{{ form.name }}" />
-                    <label>{{ choice.type }}</label>
+            {% for userType in form.get_user_types %}
+                <div class="form-type">
+                    <div class="color-box" style="background: {{ userType.color }}"></div>
+                    <input type="radio" name="rd-{{ form.name }}" value="{{ userType.user_type }} * {{ userType.color }}" class="radio-{{ form.name }}" />
+                    <label>{{ userType.user_type }}</label>
                 </div>
             {% endfor %}
             <div class="form-field">
