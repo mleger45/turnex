@@ -1,11 +1,26 @@
 {% extends "base.j2"%}
+
+
 {% block content%}
-<h2>Considerations</h2>
-<p>To run this project, please type:
-<strong>docker-compose -f docker-compose.development up</strong>
-</p>
-to configure the forms, type <a href="{% url 'msn:main_view' %}">here</a>
+<div class="main">
+<h2>Bienvenidos a Proxiturno!</h2>
 
+<div class="seccion">
+<p>Proxiturno es un sistema básico que perminitirá una gestión básica de turnos. En esta versión ud puede: </p>
+<ol>
+<li> Crear nuevos formularios disponibles</li>
+<li> Administrar información del board</li>
+<li> Realizar llamados desde el formulario de turnos</li>
+<li> Sonar el timbre para confirmar el último llamado</li>
+</ol>
+</div>
 
+<div class="seccion">
+<p> Detalles del producto </p>
+</div>
 
+<div class="seccion">
+<p>Seccion 3</p>
+</div>
+</div>
 {% endblock%}

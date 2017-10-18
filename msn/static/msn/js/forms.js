@@ -3,7 +3,6 @@ function clearStorage() {
 }
 
 function updateTicket(obj) {
-    //document.getElementsByClassName('board-sidebar-type')[0].innerHTML = obj.type;
     document.getElementsByClassName('sidebar-ticket')[0].style.backgroundColor = obj.color;
     document.getElementsByClassName('sidebar-ticket')[0].innerHTML = obj.value;
 }
@@ -38,9 +37,7 @@ function updateList(ticket) {
 
 clearStorage();
 
-
-
-var socket = new WebSocket("wss://" + window.location.host + "/"); // TODO: Provide ws routes from BE
+var socket = new WebSocket("ws://" + window.location.host + "/"); // TODO: Provide ws routes from BE
 socket.onmessage = function(e) {
     try {
         var a = JSON.parse(e.data);
@@ -122,3 +119,14 @@ function ring() {
     socket.send(JSON.stringify(payload));
     return false;
 }
+
+$(document).ready(function () {
+    var forms = document.getElementsByTagName("form")
+    for (var formElement of forms) {
+        formElement.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var target = event.target.getElementsByClassName("form-button")[0];
+            sendTicket(target.firstElementChild);
+        }, false);
+    }
+});

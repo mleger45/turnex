@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block content%}
-<div class="forms">
+<div class="forms" id="forms">
 {% for form in forms %} 
     <div class="form">
         <div class="form-title">
@@ -20,17 +20,17 @@
         <div class="form-raw">
         <form id="{{ form.name }}" method="POST" href="#">
             {% for userType in form.get_user_types %}
-                <div class="form-type">
+                <div class="form-type">{% csrf_token %}
                     <div class="color-box" style="background: {{ userType.color }}"></div>
                     <input type="radio" name="rd-{{ form.name }}" value="{{ userType.user_type }} * {{ userType.color }}" class="radio-{{ form.name }}" />
                     <label>{{ userType.user_type }}</label>
                 </div>
             {% endfor %}
             <div class="form-field">
-            <input id="input-{{form.name}}" type="text" name="" value=""/>
+                <input id="input-{{form.name}}" type="text" name="" value=""/>
             </div>
             <div class="form-button">
-            <input type="button" value="notify" onclick="sendTicket(this);"/>
+                <input type="button" value="notify" onclick="sendTicket(this);"/>
             </div>
         </form>
         </div>
@@ -62,5 +62,3 @@
 {% block scripts %}
 <script  type="text/javascript" src="{% static "msn/js/forms.js" %}"></script>
 {% endblock %}
-
-

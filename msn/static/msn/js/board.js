@@ -100,7 +100,7 @@ $(document).ready(function() {
     }
 
     clearStorage();
-    var socket = new WebSocket("wss://" + window.location.host + "/"); // TODO: Provide ws routes from BE
+    var socket = new WebSocket("ws://" + window.location.host + "/"); // TODO: Provide ws routes from BE
     socket.onmessage = function(e) {
         try {
             var a = JSON.parse(e.data);
