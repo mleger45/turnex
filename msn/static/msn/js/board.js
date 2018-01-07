@@ -6,15 +6,17 @@ $(document).ready(function() {
             $.each(form.types, function(key, userType) {
                 types.push("<p class=\"title\">" + userType.user_type + "</p><p class=\"text\">" + userType.description + "</p>");
                 colors.push(userType.color);
-            })
+            });
         });
     });
 
-    document.getElementsByClassName('front')[0].innerHTML = types[0];
-    document.getElementsByClassName('front')[0].style.backgroundColor = colors[0];
+    if (types.length > 0) {
+        document.getElementsByClassName('front')[0].innerHTML = types[0];
+        document.getElementsByClassName('front')[0].style.backgroundColor = colors[0];
+        document.getElementsByClassName('back')[0].innerHTML = types[1];
+        document.getElementsByClassName('back')[0].style.backgroundColor = colors[1];
+    }
 
-    document.getElementsByClassName('back')[0].innerHTML = types[1];
-    document.getElementsByClassName('back')[0].style.backgroundColor = colors[1];
     var global = 1;
     var isFront = true;
 
@@ -46,7 +48,6 @@ $(document).ready(function() {
     }
 
     setInterval(switchTypes, 5000);
-
 
     function clearStorage() {
         localStorage.clear('oldTicket');
@@ -100,7 +101,11 @@ $(document).ready(function() {
     }
 
     clearStorage();
-    var socket = new WebSocket("ws://" + window.location.host + "/"); // TODO: Provide ws routes from BE
+    var debug = document.getElementById('debug').value;
+    var secure = (debug === "True") ? "" : "s";
+    var socketURL = "ws"+secure+"://" + window.location.host + "/";
+    console.log(socketURL);
+    var socket = new WebSocket(socketURL);
     socket.onmessage = function(e) {
         try {
             var a = JSON.parse(e.data);

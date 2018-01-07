@@ -6,6 +6,10 @@ Models for  Forms
 from django.db import models
 from jsonfield import JSONField
 
+class TurnexFormManager(models.Manager):
+    
+    def published(self):
+        return self.filter(published=True)
 
 class TurnexForm(models.Model):
     '''
@@ -20,9 +24,8 @@ class TurnexForm(models.Model):
     published = models.BooleanField(
         db_index=True, editable=True, default=False)
     order = models.IntegerField()
-
-    def __repr__(self):
-        return self.name
+    
+    objects = TurnexFormManager()
 
     def __str__(self):
         return 'Form: {}'.format(self.name)
@@ -39,4 +42,4 @@ class TurnexType(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        return '{} - {}'.format(self.form_owner.name ,self.user_type)
+        return '{} - {}'.format(self.form_owner.name, self.user_type)

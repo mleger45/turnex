@@ -35,12 +35,13 @@ class EventTurnex(object):
 
     def process(self, message):
         """ Process all the events on the socket"""
-        if self.valid(message):
-            data = json.loads(message)
-            return self.dispatcher[data['event']](data)
-        return self.error()
+        if not self.valid(message):
+            return self.error()
+        data = json.loads(message)
+        return self.dispatcher[data['event']](data)
 
     def form_register(self, data):
+        ''' event emitted by a form view '''
         return self.server_ack_register()
 
     def board_register(self, data):
@@ -69,10 +70,11 @@ class EventTurnex(object):
         return json.dumps(exec_data)
 
     def weather_notify(self, data):
-        result = {}
         weather = services.get_weather()
-        result['event'] = self.WEATHER_ACK_NOTIFY
-        result['weather'] = weather
+        result = {
+            'event': self.WEATHER_ACK_NOTIFY,
+            'weather': weather
+        }
         return json.dumps(result)
 
     def valid(self, raw_message):

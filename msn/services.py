@@ -5,19 +5,16 @@ from django.conf import settings
 
 
 def get_forms():
-    return TurnexForm.objects.filter(published=True).order_by('order')
+    return TurnexForm.objects.published().order_by('order')
 
 
 def get_forms_config():
     """return the details of the form (should have a better name for this)"""
-    details = TurnexForm.objects.filter(
-        published=True).order_by('order').values_list('details')
+    # I know, details is a very terrible name, need to rethink this properly
+    details = get_forms().values_list('details')
 
-    sets = [FormDetailSet(initial=detail) for detail in details]
-
-    print("SIZE OF sets: {}".format(len(sets)))
-
-    return sets
+    rows = [FormDetailSet(initial=detail) for detail in details]
+    return rows
 
 
 def get_weather():

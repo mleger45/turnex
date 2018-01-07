@@ -53,6 +53,11 @@ table {
 	
 }
 
+.main {
+	flex: 1;
+    padding: 20px;
+}
+
 .container {
     display: flex;
 	height: 100vh;
@@ -81,7 +86,7 @@ table {
 }
 
 video {
-	max-height: 500px;
+	max-height: 485px;
 	object-fit: fill;
 	width: 100%;
 }

@@ -28,3 +28,7 @@ class ServiceTest(TestCase):
     def test_get_forms(self):
         result = self.services.get_forms()
         self.assertEquals(result.count(), 0)
+        
+    def test_get_form_config(self):
+        result = self.services.get_forms_config()
+        self.assertEquals(len(result), 0)

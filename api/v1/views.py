@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -9,7 +11,6 @@ class TurnexFormView(APIView):
     '''View for Forms'''
 
     def get(self, request):
-        forms = TurnexForm.objects.filter(published=True)
+        forms = TurnexForm.objects.published()
         serializer = TurnexFormSerializer(forms, many=True)
         return Response(serializer.data)
-

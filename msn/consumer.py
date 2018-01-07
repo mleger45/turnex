@@ -3,7 +3,6 @@
 from channels import Group
 
 from .events import EventTurnex
-
 event_dispatcher = EventTurnex()
 
 

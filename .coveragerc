@@ -9,6 +9,27 @@ omit =
     */admin.py
     */admin/*.py
     */urls.py
+    */apps.py
+    */asgi.py
+    */wsgi.py
     manage.py
     terrain/*
     */features/*
+    *__init__*
+
+[report]
+omit =
+    .env/*
+    */migrations/*
+    */settings/*
+    */*test*.py
+    */admin.py
+    */admin/*.py
+    */urls.py
+    */apps.py
+    */asgi.py
+    */wsgi.py
+    manage.py
+    terrain/*
+    */features/*
+    *__init__*
