@@ -3,10 +3,13 @@
 from channels import Group
 
 from .events import EventTurnex
+import logging
+db_logger = logging.getLogger(__name__)
 event_dispatcher = EventTurnex()
 
 
 def ws_connect(message):
+    db_logger.info('connect successFULLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
     message.reply_channel.send({"accept": True})
     Group("turnex").add(message.reply_channel)
 

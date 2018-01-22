@@ -1,6 +1,9 @@
 $(document).ready(function() {
     var types = [];
     var colors = [];
+    videos = [];
+    var videoElement = document.getElementById("video");
+
     $.getJSON("/api/v1/forms/?format=json", function(data) {
         $.each(data, function(key, form) {
             $.each(form.types, function(key, userType) {
@@ -9,6 +12,17 @@ $(document).ready(function() {
             });
         });
     });
+
+    $.getJSON("/api/v1/videos/?format=json", function(data) {
+        $.each(data, function(key, video){
+            videos.push(video);
+        });
+
+        defaultVideo(videos);
+
+    });
+
+
 
     if (types.length > 0) {
         document.getElementsByClassName('front')[0].innerHTML = types[0];
@@ -171,13 +185,43 @@ $(document).ready(function() {
 
     function weather() {
         eventWeather = {
-            'event': 'weather-notify'
+            "event": "weather-notify"
         };
         socket.send(JSON.stringify(eventWeather));
     }
 
     function updateWeather(weather) {
-        document.getElementById('js-img-weather').setAttribute('src', weather.url);
-        document.getElementById('js-temperature').innerHTML = weather.temperature + " &#8451;";
+        document.getElementById("js-img-weather").setAttribute('src', weather.url);
+        document.getElementById("js-temperature").innerHTML = weather.temperature + " &#8451;";
     }
+
+    function defaultVideo(videos){
+        videoElement.src = videos[0].resource;
+        videoElement.dataset.videoId = 0;
+    }
+
+
+    videoElement.addEventListener(`ended`, function(e) {
+        var videos = window.hasOwnProperty(videos)? window.videos:[];
+        var videoId, nextIndex;
+        videoId = nextIndex = 0;
+
+        if (!videos){
+            console.log("No videos found");
+        } else {
+            videoId = e.target.dataset.videoId;
+            console.log('videoId', videoId);
+            nextIndex = parseInt(videoId) + 1;
+            if( nextIndex == videos.length) {
+                this.src = videos[0].resource;
+                this.dataset.videoId = 0;
+            } else {
+                console.log('nextIndex', nextIndex, 'elem', videos[nextIndex]);
+                this.src = videos[nextIndex].resource;
+                this.dataset.videoId = nextIndex;
+            }
+        }
+    });
+
+
 });

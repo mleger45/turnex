@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.views.static import serve
+from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls, name="admin"),
@@ -22,4 +24,7 @@ urlpatterns = [
                                namespace='rest_framework'), name="api_auth"),
     url(r'api/v1/', include('api.v1.urls'), name="api"),
     url(r'turnex/', include('msn.urls', namespace='msn')),
+    url(r'^media/(?P<path>.*)$', serve, {
+            'document_root': settings.MEDIA_ROOT,
+        }),
 ]

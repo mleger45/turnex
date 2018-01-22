@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'channels',
     'forms',
     'msn',
+    'videos',
+    'django_db_logger',
 ]
 
 MIDDLEWARE = [
@@ -144,4 +146,32 @@ CHANNEL_LAYERS = {
         },
         "ROUTING": "msn.routing.channel_routing",
     },
+}
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': 'MC SAYS:  %(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(asctime)s %(message)s'
+        },
+    },
+    'handlers': {
+        'db_log': {
+            'level': 'DEBUG',
+            'class': 'django_db_logger.db_log_handler.DatabaseLogHandler'
+        },
+    },
+    'loggers': {
+        'db': {
+            'handlers': ['db_log'],
+            'level': 'DEBUG'
+        }
+    }
 }

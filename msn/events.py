@@ -1,5 +1,8 @@
 # -*- coding:utf-8 -*-
+import logging
 import json
+db_logger = logging.getLogger('db')
+
 from msn import services
 
 
@@ -36,7 +39,9 @@ class EventTurnex(object):
     def process(self, message):
         """ Process all the events on the socket"""
         if not self.valid(message):
+            db_logger.error('Not valid message detected: {}'.format(message))
             return self.error()
+        db_logger.info('processing message: {}'.format(message))
         data = json.loads(message)
         return self.dispatcher[data['event']](data)
 

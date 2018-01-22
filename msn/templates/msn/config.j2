@@ -1,16 +1,18 @@
-configuracion:
-
-
-    {% for formset in metaforms %}
-<div class="form">
-    {{ formset.management_form }}
-    <h2>Formulario</h2>
-    <form action="#">
-        <table>
-            {% for form in formset %}
-                {{"ok"}}
-            {% endfor %}
-        </table>
-    </form>
-    {% endfor %}
-</div>
+{% extends "base.j2"%}
+{% load static %}
+{% block head %}
+    <title> Administraci&oacute;n </title>
+    {% endblock %}
+{% block content %}
+    <h2>Bienvenidos al m&oacute;dulo de configuraci&oacute;n de Proxiturno!</h2>
+    <div class="content">
+        Las opciones configurables son las siguientes:
+        <ul class="menu">
+            <li>
+                <a href="{% url 'msn:video' %}">
+                    <img src="{% static "msn/img/video.png" %}" />
+                </a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
