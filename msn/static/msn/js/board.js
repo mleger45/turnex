@@ -117,7 +117,7 @@ $(document).ready(function() {
     clearStorage();
     var debug = document.getElementById('debug').value;
     var secure = (debug === "True") ? "" : "s";
-    var socketURL = "wss"+secure+"://" + window.location.host + "/";
+    var socketURL = "ws"+secure+"://" + window.location.host + "/";
     console.log(socketURL);
     var socket = new WebSocket(socketURL);
     socket.onmessage = function(e) {

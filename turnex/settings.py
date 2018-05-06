@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'msn',
     'videos',
     'django_db_logger',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -175,3 +176,7 @@ LOGGING = {
         }
     }
 }
+
+# For Celery
+BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = BROKER_URL
