@@ -46,7 +46,7 @@ python-gnupg==0.4.0
 pytz==2017.2
 PyYAML==3.12
 redis==2.10.5
-requests==2.18.1
+requests==2.20.0
 simplegeneric==0.8.1
 six==1.10.0
 traitlets==4.3.2
