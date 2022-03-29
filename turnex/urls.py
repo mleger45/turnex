@@ -20,10 +20,9 @@ from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls, name="admin"),
-    url(r'^api-auth/', include('rest_framework.urls',
-                               namespace='rest_framework'), name="api_auth"),
-    url(r'api/v1/', include('api.v1.urls'), name="api"),
-    url(r'turnex/', include('msn.urls', namespace='msn')),
+    url(r'^api-auth/', include('rest_framework.urls', 'rest_framework')),
+    url(r'^api/v1/', include(('api.v1.urls', 'urls'), namespace="url") ),
+    url(r'^turnex/', include(('msn.urls', 'msn'), namespace="msn")),
     url(r'^media/(?P<path>.*)$', serve, {
             'document_root': settings.MEDIA_ROOT,
         }),
